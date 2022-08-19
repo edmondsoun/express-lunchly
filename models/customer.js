@@ -119,6 +119,7 @@ class Customer {
     return this.firstName + " " + this.lastName;
   }
 
+  /** search for top ten customers with the most reservations */
   static async searchTopTen() {
     const results = await db.query(
       `SELECT c.id AS id,
