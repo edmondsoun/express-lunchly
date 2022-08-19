@@ -9,23 +9,22 @@ const Reservation = require("./models/reservation");
 
 const router = new express.Router();
 
-/** Homepage: show list of customers. */
+/** Homepage: show list of customers or results of search.
+ */
 
 router.get("/", async function (req, res, next) {
+  //conditional logic if (req.query.search) ==> do the search
+  if (req.query.search) {
+    const customers = await Customer.search(req.query.search);
+    return res.render("customer_list.html", { customers });
+  }
   const customers = await Customer.all();
   return res.render("customer_list.html", { customers });
 });
 
-/** Search for a customer. */
-
-router.get("/search", async function (req, res, next) {
-
-  const customers = await Customer.search(req.query.search);
-  return res.render("customer_list.html", { customers });
-
-});
 
 /** Show top ten customers */
+
 router.get("/top-ten", async function (req, res, next) {
 
   const customers = await Customer.searchTopTen();
