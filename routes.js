@@ -25,6 +25,14 @@ router.get("/search", async function (req, res, next) {
 
 });
 
+/** Show top ten customers */
+router.get("/top-ten", async function (req, res, next) {
+
+  const customers = await Customer.searchTopTen();
+  return res.render("customer_list.html", { customers })
+})
+
+
 /** Form to add a new customer. */
 
 router.get("/add/", async function (req, res, next) {
