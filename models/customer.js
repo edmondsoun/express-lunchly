@@ -90,6 +90,12 @@ class Customer {
       );
     }
   }
+  /** combine customer's first name and last name */
+
+  showFullName() {
+    return this.firstName + " " + this.lastName;
+
+}
 }
 
 module.exports = Customer;
