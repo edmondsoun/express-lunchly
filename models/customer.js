@@ -31,6 +31,29 @@ class Customer {
     return results.rows.map(c => new Customer(c));
   }
 
+
+  /** search customers. */
+
+
+  static async search(searchTerm) {
+
+    //how to make a more flexible search?
+    const results = await db.query(
+          `SELECT id,
+                  first_name AS "firstName",
+                  last_name  AS "lastName",
+                  phone,
+                  notes
+           FROM customers
+           WHERE first_name = $1 OR last_name = $1
+           ORDER BY last_name, first_name`, 
+           [searchTerm]
+    );
+    return results.rows.map(c => new Customer(c));
+  }
+
+
+
   /** get a customer by ID. */
 
   static async get(id) {
